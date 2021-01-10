@@ -7,10 +7,14 @@ import * as dotenv from 'dotenv';
 import * as passport from 'passport';
 import * as hpp from 'hpp';
 import * as helmet from 'helmet';
+import {sequelize} from './models';
 
 
 dotenv.config();
 const app = express();
+sequelize.sync({ force: false })
+  .then(() => console.log('sequelize db connected!'))
+  .catch((err: Error) => console.error(err));
 const prod: boolean = process.env.NODE_ENV === 'production';
 
 
